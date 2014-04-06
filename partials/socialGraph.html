@@ -1,0 +1,51 @@
+<div ng-include="'partials/match.html'"></div>
+<g id="viewport">
+    <social-graph class="socialGraph" selected-node="selectedNode" selected-link="selectedLink"></social-graph>
+</g>
+
+<div class="nodeInfo" ng-show="selectedNode">
+    <span class="badge team-{{selectedNode.team}}">
+        <span class="glyphicon glyphicon-eye-open"></span>
+        <span ng-bind="selectedNode.fullName"></span>
+        <span ng-show="selectedNode.nickName">
+            (<span ng-bind="selectedNode.nickName"></span>)
+        </span>
+    </span>
+    <span ng-hide="selectedNode.isDummy()" class="badge">
+        <span ng-show="selectedNode.isUser()">
+            <span class="glyphicon glyphicon-user"></span>
+            <span ng-show="selectedNode.role" ng-bind="('person.role.' + selectedNode.role)|trans"></span>
+        </span>
+        <span ng-show="selectedNode.isMaybe()">
+            <span class="glyphicon glyphicon-question-sign"></span>
+            <span ng-bind="'person.type.maybe'|trans"></span>
+        </span>
+        <span ng-show="selectedNode.isBaby()" >
+            <span class="glyphicon glyphicon-heart-empty"></span>
+            <span ng-bind="'person.type.baby'|trans"></span>
+        </span>
+    </span>
+
+    <span ng-show="selectedNode.isCaptured" class="badge captured">
+        <span class="glyphicon glyphicon-asterisk"></span>
+        <span ng-bind="'person.captured'|trans"></span>
+    </span>
+
+    <span ng-show="selectedNode.hasBalance()">
+        <span ng-bind="'person.balance'|trans"></span>:
+        <span class="badge badgeOwnPoints-{{selectedNode.team}}" ng-bind="selectedNode.strength"></span>
+        <span class="badge badgeOtherPoints-{{selectedNode.team}}" ng-bind="selectedNode.hits"></span>
+    </span>
+
+    <button type="button" ng-hide="selectedNode.isMe() || selectedNode.isFriendOfFriend()" class="addActivity btn btn-default" ng-click="createActivityOnNode(selectedNode)">
+        <span class="glyphicon glyphicon-plus"></span>
+        <span ng-bind="'action.socialGraph.createActivityLink'|trans"></span>
+    </button>
+</div>
+<div class="linkInfo" ng-show="selectedLink">
+    <!-- TODO: translate -->
+    Activities links from <span ng-bind="selectedLink.source.fullName"></span>
+    to <span ng-bind="selectedLink.target.fullName"></span>.
+    Number of activities: <span ng-bind="selectedLink.completedActivities"></span> completed.
+    <span ng-bind="selectedLink.openActivities"></span> open.
+</div>

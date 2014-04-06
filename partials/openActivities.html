@@ -1,0 +1,9 @@
+<div class="referenceCodeList" ng-show="openActivityLinks">
+    <span ng-bind="'openActivities.description' | trans"></span>
+    <ul>
+        <li ng-repeat="link in openActivityLinks">
+            <span ng-bind="link.activity"></span> <span ng-bind="link.target"></span>:
+            <span ng-bind="link.referenceCode"></span>
+        </li>
+    </ul>
+</div>

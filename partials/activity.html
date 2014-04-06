@@ -1,0 +1,15 @@
+<form novalidate name="activityLinkForm" class="activityLinkForm spacedForm">
+    <div ng-switch="activityLinkTarget.type">
+        <input type="text" required class="form-control" ng-switch-when="dummy" ng-model="form.targetName"
+         placeholder="{{ 'activityLink.form.targetName' | trans }}"/>
+        <span ng-switch-default>
+            <span ng-bind="'activityLink.label.targetName' | trans"></span>: <span ng-bind="activityLinkTarget.fullName"></span>
+        </span>
+    </div>
+    <select required class="form-control" ng-model="form.selectedActivity" ng-options="v.name for (k, v) in activities">
+        <option value="">{{ 'activityLink.form.choose' | trans }}</option>
+    </select>
+
+    <button type="submit" class="btn btn-default" ng-disabled="activityLinkForm.$invalid"
+     ng-click="submit()" ng-bind="'activityLink.form.submit' | trans"></button>
+</form>

@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en" ng-app="monkeyFace" ng-controller="AppCtrl" class="ng-cloak">
+<head>
+    <meta charset="utf-8">
+    <title>veganaut.net</title>
+    <link rel="stylesheet" href="lib/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/master.css"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body class="{{ me.team }}Player">
+
+<header class="navbar navbar-default navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container navbarContainer">
+            <div class="navbar-header">
+                <button class="navbar-toggle menuButton" ng-click="menuShown = !menuShown">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <span class="navbar-brand" href="#" ng-bind="'app.title' | trans"></span>
+            </div>
+            <nav class="collapse" collapse="!menuShown">
+                <button class="btn btn-default btn-block navRegister" ng-click="goToView('register')"
+                 ng-hide="isLoggedIn()" ng-bind="'navigation.register' | trans"></button>
+                <button class="btn btn-default btn-block navLogin" ng-click="goToView('login')"
+                 ng-hide="canViewGraph()" ng-bind="'navigation.login' | trans"></button>
+                <button class="btn btn-default btn-block navLogout" ng-click="logout()"
+                 ng-show="isLoggedIn()" ng-bind="'navigation.logout' | trans"></button>
+                <button class="btn btn-default btn-block navGraph" ng-click="goToView('socialGraph')"
+                 ng-show="canViewGraph()" ng-bind="'navigation.avatar' | trans"></button>
+                <button class="btn btn-default btn-block navActivities" ng-click="goToView('openActivities')"
+                 ng-show="canViewGraph()" ng-bind="'navigation.openActivities' | trans"></button>
+                <button class="btn btn-default btn-block navRefCode" ng-click="goToView('referenceCode')"
+                 ng-bind="'navigation.referenceCode' | trans"></button>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<div class="container mainContainer">
+    <alert ng-repeat="alert in getAlerts()" type="alert.type" close="closeAlert(alert)" class="mainAlert">
+        <span ng-bind="alert.message"></span>
+    </alert>
+
+    <div ng-view></div>
+</div>
+
+<div class="modal-backdrop in menuBackdrop" ng-show="menuShown" ng-click="menuShown = false"></div>
+
+<!-- TODO: concat & uglify all that -->
+<script src="lib/angular/angular.js"></script>
+<script src="lib/d3.v3.min.js"></script>
+<script src="lib/angular/i18n/angular-locale_en-gb.js"></script>
+<script src="lib/angular/angular-route.js"></script>
+<script src="lib/angular/ui-bootstrap-tpls-0.10.0.min.js"></script>
+<script src="js/app.js"></script>
+<script src="js/config.js"></script>
+<script src="js/services/activityLinkTargetProvider.js"></script>
+<script src="js/services/alertProvider.js"></script>
+<script src="js/services/backend.js"></script>
+<script src="js/services/localeProvider.js"></script>
+<script src="js/services/nodeProvider.js"></script>
+<script src="js/controllers/ActivityLinkCtrl.js"></script>
+<script src="js/controllers/AppCtrl.js"></script>
+<script src="js/controllers/LoginCtrl.js"></script>
+<script src="js/controllers/MatchCtrl.js"></script>
+<script src="js/controllers/OpenActivitiesCtrl.js"></script>
+<script src="js/controllers/ReferenceCodeCtrl.js"></script>
+<script src="js/controllers/RegisterCtrl.js"></script>
+<script src="js/controllers/SocialGraphCtrl.js"></script>
+<script src="js/filters/trans.js"></script>
+<script src="js/directives/socialGraph.js"></script>
+</body>
+</html>
